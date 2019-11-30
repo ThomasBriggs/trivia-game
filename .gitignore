@@ -104,4 +104,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/java,code,linux,macos,windows
-n
+
+!lib/*.jar
