@@ -28,7 +28,7 @@ public class Question {
     }
 
     public String getCorrect_answer() {
-        return correct_answer;
+        return StringEscapeUtils.unescapeHtml4(correct_answer);
     }
 
     public void setCorrectAnswer(String correct_answer) {
