@@ -1,0 +1,7 @@
+/**
+ * TriviaGame
+ */
+public class TriviaGame {
+
+    
+}
