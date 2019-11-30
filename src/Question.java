@@ -6,8 +6,8 @@ public class Question {
 
     private String difficulty;
     private String question;
-    private String correctAnswer;
-    private String[] incorrectAnswers;
+    private String correct_answer;
+    private String[] incorrect_answers;
     private String category;
     private String type;
 
@@ -28,19 +28,19 @@ public class Question {
     }
 
     public String getCorrect_answer() {
-        return correctAnswer;
+        return correct_answer;
     }
 
     public void setCorrectAnswer(String correct_answer) {
-        this.correctAnswer = correct_answer;
+        this.correct_answer = correct_answer;
     }
 
     public String[] getIncorrectAnswers() {
-        return incorrectAnswers;
+        return incorrect_answers;
     }
 
     public void setIncorrectAnswers(String[] incorrect_answers) {
-        this.incorrectAnswers = incorrect_answers;
+        this.incorrect_answers = incorrect_answers;
     }
 
     public String getCategory() {
