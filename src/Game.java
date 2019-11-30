@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 /**
  * Main
  */
-public class Main {
+public class Game {
 
     public static void main(String[] args) throws Exception {
         String json = Trivia.get("amount=10", "type=multiple", "category=9");
