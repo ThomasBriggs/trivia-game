@@ -7,11 +7,15 @@ import com.google.gson.Gson;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String json = Trivia.get("amount=10", "type=multiple");
-        Question[] questions = new Gson().fromJson(json, APIData.class).getQuestions();
+        String json = Trivia.get("amount=10", "type=multiple", "category=9");
+        APIData data = new Gson().fromJson(json, APIData.class);
+        Question[] questions = data.getQuestions();
         Scanner in = new Scanner(System.in);
         int ans;
+        int correctAnswers = 0;
         int questionNumber = 1;
+        System.out.println(data.getResponseCode());
+        System.out.println();
         for (Question question : questions) {
             System.out.println(questionNumber + " - " + question.getCategory() + " - " + question.getDifficulty());
             System.out.println(question.toString(question.getAnswersSorted()));
@@ -21,6 +25,7 @@ public class Main {
             if (question.getAnswersSorted()[ans-1].equals(question.getCorrect_answer())){
                 System.out.println();
                 System.out.println("Correct");
+                correctAnswers = correctAnswers + 1;
             }else {
                 System.out.println();
                 System.out.println("Incorrect");
@@ -30,5 +35,6 @@ public class Main {
             questionNumber++;
         }
         in.close();
+        System.out.println("Correct answers: " + correctAnswers);
     }
 }
