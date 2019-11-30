@@ -9,9 +9,10 @@ import java.net.URL;
 public class Trivia {
 
     private static String baseUrl = "https://opentdb.com/api.php";
+    private static String catagoryUrl = "https://opentdb.com/api_category.php";
 
     public static String get(String... params) throws Exception {
-        URL url = new URL(makeUrl(params));
+        URL url = new URL(makeUrl(baseUrl, params));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         InputStreamReader in = new InputStreamReader(conn.getInputStream());
@@ -21,7 +22,7 @@ public class Trivia {
         return output; 
     }
 
-    private static String makeUrl(String... params){
+    private static String makeUrl(String baseUrl, String... params){
         String output = baseUrl + "?";
         for (int i = 0; i < params.length; i++) {
             if (i > 0){
@@ -30,5 +31,17 @@ public class Trivia {
             output += params[i];
         }
         return output;
+    }
+
+    public static String getCatagoryList() throws Exception {
+        
+        URL url = new URL(makeUrl(catagoryUrl));
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        InputStreamReader in = new InputStreamReader(conn.getInputStream());
+        BufferedReader br = new BufferedReader(in);
+        String output = br.readLine();
+        conn.disconnect();
+        return output; 
     }
 }
