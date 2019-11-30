@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import com.google.gson.Gson;
 
 /**
@@ -6,14 +7,13 @@ import com.google.gson.Gson;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        //mount=1&category=9&difficulty=easy&type=multiple
         String json = Trivia.get("amount=3", "category=9", "difficulty=hard", "type=multiple");
         Question[] questions = new Gson().fromJson(json, APIData.class).getQuestions();
+        Scanner in = new Scanner(System.in);
         for (Question question : questions) {
             System.out.println(question);
             System.out.println();
-            System.out.println(question.getCorrect_answer());
-            System.out.println();
+            
         }
     }
 }
