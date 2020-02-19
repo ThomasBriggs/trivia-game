@@ -1,9 +1,5 @@
 package Dao;
 
-import java.util.Arrays;
-
-import org.apache.commons.text.StringEscapeUtils;
-
 public class Question {
 
     private String difficulty;
@@ -18,37 +14,47 @@ public class Question {
     }
 
     public String getQuestion() {
-        return StringEscapeUtils.unescapeHtml4(this.question);
+        return this.question;
     }
 
     public String getCorrectAnswer() {
-        return StringEscapeUtils.unescapeHtml4(this.correct_answer);
+        return this.correct_answer;
     }
 
     public String[] getIncorrectAnswers() {
         return incorrect_answers;
     }
 
+    /**
+     * Returns the category of the question
+     * 
+     * @return the category of the question
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * Returns the type of the question
+     * 
+     * @return the type of the question
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Creates an array consisting of the correct answer at index 0 and the 3
+     * incorrect answers at index 1 to 3
+     * 
+     * @return a String array containg all answers
+     */
     public String[] getAnswers() {
         String[] answers = new String[4];
         answers[0] = getCorrectAnswer();
         for (int i = 0; i < getIncorrectAnswers().length; i++) {
             answers[i + 1] = getIncorrectAnswers()[i];
         }
-        return answers;
-    }
-
-    public String[] getAnswersSorted() {
-        String[] answers = getAnswers();
-        Arrays.sort(answers);
         return answers;
     }
 
