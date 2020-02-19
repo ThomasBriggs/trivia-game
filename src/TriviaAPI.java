@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,7 +12,7 @@ public class TriviaAPI {
     private static String baseUrl = "https://opentdb.com/api.php";
     private static String catagoryUrl = "https://opentdb.com/api_category.php";
 
-    public static String get(String... params) throws Exception {
+    public static String get(String... params) throws IOException {
         URL url = new URL(makeUrl(baseUrl, params));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
