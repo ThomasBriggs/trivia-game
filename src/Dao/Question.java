@@ -1,7 +1,6 @@
 package Dao;
 
 import java.util.Arrays;
-
 import org.apache.commons.text.StringEscapeUtils;
 
 public class Question {
@@ -29,7 +28,7 @@ public class Question {
         this.question = question;
     }
 
-    public String getCorrect_answer() {
+    public String getCorrectAnswer() {
         return StringEscapeUtils.unescapeHtml4(correct_answer);
     }
 
@@ -63,7 +62,7 @@ public class Question {
 
     public String[] getAnswers() {
         String[] answers = new String[4];
-        answers[0] = getCorrect_answer();
+        answers[0] = getCorrectAnswer();
         for (int i = 0; i < getIncorrectAnswers().length; i++) {
             answers[i + 1] = getIncorrectAnswers()[i];
         }
@@ -85,5 +84,16 @@ public class Question {
         String ans4 = answers[3];
         output = String.format("%s\n1: %s\n2: %s\n3: %s\n4: %s", questionString, ans1, ans2, ans3, ans4);
         return StringEscapeUtils.unescapeHtml4(output);
+    }
+
+    /**
+     * Returns the Topic Area of the question as well as the difficulty in the form
+     * of Topic Area - Difficulty
+     * 
+     * @return string of the question title
+     */
+    public String getQuestionTitle() {
+        return this.getCategory() + " - " + this.getDifficulty().substring(0, 1).toUpperCase()
+                + this.getDifficulty().substring(1);
     }
 }
