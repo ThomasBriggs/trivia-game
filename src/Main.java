@@ -18,15 +18,15 @@ public class Main {
         System.out.println();
         for (Question question : questions) {
             System.out.println(questionNumber + " - " + question.getQuestionTitle());
-            System.out.println(question.toString(question.getAnswersSorted()));
+            System.out.println(question.formatAnswers(question.getAnswersSorted()));
             System.out.println();
             System.out.print("Please choose an answer (1-4): ");
             ans = in.nextInt();
-            if (question.getAnswersSorted()[ans-1].equals(question.getCorrectAnswer())){
+            if (question.getAnswersSorted()[ans - 1].equals(question.getCorrectAnswer())) {
                 System.out.println();
                 System.out.println("Correct");
                 correctAnswers = correctAnswers + 1;
-            }else {
+            } else {
                 System.out.println();
                 System.out.println("Incorrect");
                 System.out.println("Correct answer: " + question.getCorrectAnswer());
