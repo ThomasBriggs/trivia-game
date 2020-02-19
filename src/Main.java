@@ -1,40 +1,35 @@
+import java.io.IOException;
 import java.util.Scanner;
-import com.google.gson.Gson;
-import Dao.*;
 
 /**
  * Main
  */
 public class Main {
 
-    public static void main(String[] args) throws Exception {
-        APIData data = new Gson().fromJson(TriviaAPI.get("amount=10", "type=multiple", "category=9"), APIData.class);
-        Question[] questions = data.getQuestions();
+    public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-        int ans;
-        int correctAnswers = 0;
-        int questionNumber = 1;
-        System.out.println(data.getResponseCode());
-        System.out.println();
-        for (Question question : questions) {
-            System.out.println(questionNumber + " - " + question.getQuestionTitle());
-            System.out.println(question.formatAnswers(question.getAnswersSorted()));
+        TriviaGame game = new TriviaGame(10, 9, TriviaGame.QUESTION_DIFFICULTY_MEDIUM,
+                TriviaGame.QUESTION_TYPE_MULTIPLE);
+        int answer;
+        while (game.hasNextQuestion()) {
+            System.out.println(game.getQuestionTitle());
+            System.out.println(game.getQuestion());
+            System.out.println(game.printAnswers());
             System.out.println();
-            System.out.print("Please choose an answer (1-4): ");
-            ans = in.nextInt();
-            if (question.getAnswersSorted()[ans - 1].equals(question.getCorrectAnswer())) {
-                System.out.println();
+            System.out.print("Please enter a (1-4): ");
+            answer = in.nextInt();
+            if (game.checkAnswer(answer)) {
+                game.correct();
                 System.out.println("Correct");
-                correctAnswers = correctAnswers + 1;
             } else {
-                System.out.println();
+                game.incorrect();
                 System.out.println("Incorrect");
-                System.out.println("Correct answer: " + question.getCorrectAnswer());
+                System.out.print("Correct answer was: ");
+                System.out.println(TriviaGame.escape(game.getCorrectAnswer()));
             }
             System.out.println();
-            questionNumber++;
+            game.next();
         }
-        in.close();
-        System.out.println("Correct answers: " + correctAnswers);
+        System.out.printf("Correct Questions: %s\nIncorrect Questions: %s\n", game.getScore()[0], game.getScore()[1]);
     }
 }
