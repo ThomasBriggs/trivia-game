@@ -31,5 +31,6 @@ public class Main {
             game.next();
         }
         System.out.printf("Correct Questions: %s\nIncorrect Questions: %s\n", game.getScore()[0], game.getScore()[1]);
+        in.close();
     }
 }
