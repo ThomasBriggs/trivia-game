@@ -8,8 +8,7 @@ import Dao.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        String json = TriviaAPI.get("amount=10", "type=multiple", "category=9");
-        APIData data = new Gson().fromJson(json, APIData.class);
+        APIData data = new Gson().fromJson(TriviaAPI.get("amount=10", "type=multiple", "category=9"), APIData.class);
         Question[] questions = data.getQuestions();
         Scanner in = new Scanner(System.in);
         int ans;
@@ -18,19 +17,19 @@ public class Main {
         System.out.println(data.getResponseCode());
         System.out.println();
         for (Question question : questions) {
-            System.out.println(questionNumber + " - " + question.getCategory() + " - " + question.getDifficulty());
+            System.out.println(questionNumber + " - " + question.getQuestionTitle());
             System.out.println(question.toString(question.getAnswersSorted()));
             System.out.println();
             System.out.print("Please choose an answer (1-4): ");
             ans = in.nextInt();
-            if (question.getAnswersSorted()[ans-1].equals(question.getCorrect_answer())){
+            if (question.getAnswersSorted()[ans-1].equals(question.getCorrectAnswer())){
                 System.out.println();
                 System.out.println("Correct");
                 correctAnswers = correctAnswers + 1;
             }else {
                 System.out.println();
                 System.out.println("Incorrect");
-                System.out.println("Correct answer: " + question.getCorrect_answer());
+                System.out.println("Correct answer: " + question.getCorrectAnswer());
             }
             System.out.println();
             questionNumber++;
