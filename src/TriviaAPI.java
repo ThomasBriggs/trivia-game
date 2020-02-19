@@ -6,7 +6,7 @@ import java.net.URL;
 /**
  * Trivia
  */
-public class Trivia {
+public class TriviaAPI {
 
     private static String baseUrl = "https://opentdb.com/api.php";
     private static String catagoryUrl = "https://opentdb.com/api_category.php";

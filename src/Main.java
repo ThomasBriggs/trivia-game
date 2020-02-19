@@ -1,13 +1,14 @@
 import java.util.Scanner;
 import com.google.gson.Gson;
+import Dao.*;
 
 /**
  * Main
  */
-public class Game {
+public class Main {
 
     public static void main(String[] args) throws Exception {
-        String json = Trivia.get("amount=10", "type=multiple", "category=9");
+        String json = TriviaAPI.get("amount=10", "type=multiple", "category=9");
         APIData data = new Gson().fromJson(json, APIData.class);
         Question[] questions = data.getQuestions();
         Scanner in = new Scanner(System.in);

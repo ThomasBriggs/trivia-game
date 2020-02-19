@@ -2,6 +2,8 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 
+import Dao.*;
+
 /**
  * TriviaGame
  */
@@ -30,7 +32,7 @@ public class TriviaGame {
     }
 
     public void getQuestionsAPI() throws Exception {
-        String json = Trivia.get("amount=5", "category=9", "difficulty=easy", "type=multiple");
+        String json = TriviaAPI.get("amount=5", "category=9", "difficulty=easy", "type=multiple");
         setQuestions(new Gson().fromJson(json, APIData.class).getQuestions());
     }
 
