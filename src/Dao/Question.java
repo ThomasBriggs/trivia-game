@@ -75,7 +75,7 @@ public class Question {
         return answers;
     }
 
-    public String toString(String[] answers) {
+    public String formatAnswers(String[] answers) {
         String output;
         String questionString = getQuestion();
         String ans1 = answers[0];
@@ -95,5 +95,10 @@ public class Question {
     public String getQuestionTitle() {
         return this.getCategory() + " - " + this.getDifficulty().substring(0, 1).toUpperCase()
                 + this.getDifficulty().substring(1);
+    }
+
+    @Override
+    public String toString() {
+        return getQuestion();
     }
 }

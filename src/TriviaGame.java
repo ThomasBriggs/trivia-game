@@ -44,7 +44,7 @@ public class TriviaGame {
      * @throws IOException if unable to connect to the TrivaDB
      */
     public TriviaGame(final int amount, final int catagory, final int difficulty, final int type) throws IOException {
-        this.questionNumber = 1;
+        this.questionNumber = 0;
         this.amount = amount;
         this.category = catagory;
         this.difficulty = difficulty;
@@ -118,12 +118,13 @@ public class TriviaGame {
     }
 
     /**
-     * Returns the curernt question number
+     * Returns the current question index of the question in the array plus 1 to
+     * account for arrays start at 0
      * 
      * @return the question number
      */
     public int getQuestionNumber() {
-        return this.questionNumber;
+        return this.questionNumber + 1;
     }
 
     /**
@@ -147,8 +148,8 @@ public class TriviaGame {
     }
 
     // TODO Comment this
-    public String getQuestion() {
-        return this.questions[questionNumber].getQuestion();
+    public Question getQuestion() {
+        return this.questions[questionNumber];
     }
 
     // TODO Comment this
@@ -198,5 +199,16 @@ public class TriviaGame {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Creates a question title consisting of the current question number, the
+     * catagory of the question and the difficulty in the format Number - Catagory -
+     * Difficulty
+     * 
+     * @return
+     */
+    public String getQuestionTitle() {
+        return getQuestionNumber() + " - " + getQuestion().getQuestionTitle();
     }
 }

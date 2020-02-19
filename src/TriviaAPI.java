@@ -20,13 +20,13 @@ public class TriviaAPI {
         BufferedReader br = new BufferedReader(in);
         String output = br.readLine();
         conn.disconnect();
-        return output; 
+        return output;
     }
 
-    private static String makeUrl(String baseUrl, String... params){
+    private static String makeUrl(String baseUrl, String... params) {
         String output = baseUrl + "?";
         for (int i = 0; i < params.length; i++) {
-            if (i > 0){
+            if (i > 0) {
                 output += "&";
             }
             output += params[i];
@@ -35,7 +35,7 @@ public class TriviaAPI {
     }
 
     public static String getCatagoryList() throws Exception {
-        
+
         URL url = new URL(makeUrl(catagoryUrl));
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -43,6 +43,6 @@ public class TriviaAPI {
         BufferedReader br = new BufferedReader(in);
         String output = br.readLine();
         conn.disconnect();
-        return output; 
+        return output;
     }
 }
