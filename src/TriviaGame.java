@@ -74,7 +74,7 @@ public class TriviaGame {
      * @return the formatted catagory
      */
     public String getCatagory() {
-        return "catagory=" + this.category;
+        return "category=" + this.category;
     }
 
     /**
