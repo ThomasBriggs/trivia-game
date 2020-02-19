@@ -3,7 +3,10 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 
-import Dao.*;
+import org.apache.commons.text.StringEscapeUtils;
+
+import Dao.APIData;
+import Dao.Question;
 
 /**
  * TriviaGame
@@ -49,6 +52,8 @@ public class TriviaGame {
         this.category = catagory;
         this.difficulty = difficulty;
         this.type = type;
+        this.correct = 0;
+        this.incorrect = 0;
         setQuestions();
     }
 
@@ -147,45 +152,69 @@ public class TriviaGame {
         return this.questions;
     }
 
-    // TODO Comment this
+    /**
+     * Returns the question object for the current question
+     * 
+     * @return the question object
+     */
     public Question getQuestion() {
         return this.questions[questionNumber];
     }
 
-    // TODO Comment this
-    public String[] getAnswers() {
+    /**
+     * Returns a raw string array of answers given from the TriviaDB
+     * 
+     * @return a String array of the answers
+     */
+    public String[] getAnswersRaw() {
         return this.questions[questionNumber].getAnswers();
     }
 
-    // TODO Comment this
-    public String[] getAnswersSorted() {
-        final String[] ansers = getAnswers();
-        Arrays.sort(ansers);
-        return ansers;
+    private String[] getAnswersSorted() {
+        final String[] answers = getAnswersRaw();
+        Arrays.sort(answers);
+        return answers;
     }
 
-    // TODO Comment this
+    /**
+     * Returns a string of the answers formatted and given in alphabetical order
+     * 
+     * @return a String of answers
+     */
+    public String printAnswers() {
+        return escape(formatAnswers(getAnswersSorted()));
+    }
+
+    /**
+     * Takes an array of answers and returns a formated String of the answers with
+     * the htmlcharacters removed
+     * 
+     * @param answers the string array of answers
+     * @return formated string of answers
+     */
+    public static String formatAnswers(String[] answers) {
+        String ans1 = answers[0];
+        String ans2 = answers[1];
+        String ans3 = answers[2];
+        String ans4 = answers[3];
+        return String.format("1: %s\n2: %s\n3: %s\n4: %s", ans1, ans2, ans3, ans4);
+    }
+
+    /**
+     * Returns the correct answer for the current question
+     * 
+     * @return the correct answer
+     */
     public String getCorrectAnswer() {
         return this.questions[questionNumber].getCorrectAnswer();
     }
 
-    // TODO Comment this
-    public void increaseQuestionNumber() {
+    /**
+     * Moves the game onto the next question, any information returned from the
+     * object will be about the next nextion in the list after this has been run
+     */
+    public void next() {
         this.questionNumber++;
-    }
-
-    // TODO Comment this
-    public void decreaseQuestionNumber() {
-        this.questionNumber--;
-    }
-
-    // TODO Comment this
-    public String answersToString(final String[] answers) {
-        String output = "";
-        for (int i = 0; i < answers.length; i++) {
-            output += (i + 1) + ": " + answers[i] + "\n";
-        }
-        return output;
     }
 
     /**
@@ -210,5 +239,59 @@ public class TriviaGame {
      */
     public String getQuestionTitle() {
         return getQuestionNumber() + " - " + getQuestion().getQuestionTitle();
+    }
+
+    /**
+     * Checks if the answer given as a String matches the correct answer of the
+     * question
+     * 
+     * @param answer the correct answer to check
+     * @return {@code true} if the answer is correct, {@code false} otherwise
+     */
+    public boolean checkAnswer(String answer) {
+        if (answer.equals(getCorrectAnswer())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the answer is correct given the answer number when displayed using
+     * the printAnswers() function
+     * 
+     * @param answer the number of the answer
+     * @return {@code true} if the answer is correct, {@code false} otherwise
+     */
+    public boolean checkAnswer(int answer) {
+        return checkAnswer(getAnswersSorted()[answer - 1]);
+    }
+
+    /**
+     * Incerase the correct answer score by 1
+     */
+    public void correct() {
+        this.correct++;
+    }
+
+    /**
+     * Increases the incorrect answer score by 1
+     */
+    public void incorrect() {
+        this.incorrect++;
+    }
+
+    /**
+     * Returns an array of the current scores, wih the correct answers in index 0
+     * and incorrect answers at index 1
+     * 
+     * @return an array of current scores
+     */
+    public int[] getScore() {
+        return new int[] { this.correct, this.incorrect };
+    }
+
+    public static String escape(String string) {
+        return StringEscapeUtils.unescapeHtml4(string);
     }
 }
