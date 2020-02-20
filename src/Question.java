@@ -1,5 +1,6 @@
-package Dao;
-
+/**
+ * Question Class
+ */
 public class Question {
 
     private String difficulty;

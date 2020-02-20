@@ -2,11 +2,10 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import org.apache.commons.text.StringEscapeUtils;
-
-import Dao.APIData;
-import Dao.Question;
 
 /**
  * TriviaGame
@@ -28,6 +27,8 @@ public class TriviaGame {
 
     private int questionNumber;
 
+    @Expose
+    @SerializedName("results")
     private Question[] questions;
 
     private int correct;
@@ -140,7 +141,7 @@ public class TriviaGame {
      */
     private void setQuestions() throws IOException {
         final String json = TriviaAPI.get(getAmount(), getCatagory(), getDifficulty(), getType());
-        this.questions = new Gson().fromJson(json, APIData.class).getQuestions();
+        this.questions = new Gson().fromJson(json, TriviaGame.class).getQuestions();
     }
 
     /**
