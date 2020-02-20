@@ -24,7 +24,7 @@ public class TriviaGame {
     /** Value to set the game type to Multiple Choice */
     public static final int QUESTION_TYPE_MULTIPLE = 0;
 
-    /** Valueto set the game type to True or False */
+    /** Value to set the game type to True or False */
     public static final int QUESTION_TYPE_BOOLEAN = 1;
 
     private final int amount;
@@ -147,8 +147,9 @@ public class TriviaGame {
      * @throws IOException if uanable to connect to the triviaDB
      */
     private void setQuestions() throws IOException {
-        final String json = TriviaAPI.get(getAmount(), getCatagory(), getDifficulty(), getType());
-        this.questions = new Gson().fromJson(json, TriviaGame.class).getQuestions();
+        this.questions = new Gson()
+                .fromJson(TriviaAPI.get(getAmount(), getCatagory(), getDifficulty(), getType()), TriviaGame.class)
+                .getQuestions();
     }
 
     /**
@@ -299,8 +300,16 @@ public class TriviaGame {
         return new int[] { this.correct, this.incorrect };
     }
 
-    // TODO comment this
+    /**
+     * Removes html formatting from a given string
+     * 
+     * @param string the unescaped string
+     * @return a escaped string
+     */
     public static String escape(String string) {
         return StringEscapeUtils.unescapeHtml4(string);
     }
 }
+
+// TODO Add game support for True or False question mode
+// TODO Add a QUestionList to handle an array of questions
