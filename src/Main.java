@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
-        TriviaGame game = new TriviaGame(10, 9, TriviaGame.QUESTION_DIFFICULTY_HARD, TriviaGame.QUESTION_TYPE_MULTIPLE);
+        TriviaGame game = new TriviaGame(10, 9, TriviaGame.QUESTION_DIFFICULTY_ANY, TriviaGame.QUESTION_TYPE_MULTIPLE);
         int answer;
         while (game.hasNextQuestion()) {
             System.out.println(game.getQuestionTitle());
