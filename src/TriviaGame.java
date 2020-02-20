@@ -12,6 +12,9 @@ import org.apache.commons.text.StringEscapeUtils;
  */
 public class TriviaGame {
 
+    /** Value to set the game so each question has a random difficulty */
+    public static final int QUESTION_DIFFICULTY_ANY = -1;
+
     /** Value to set the game to Easy Difficulty */
     public static final int QUESTION_DIFFICULTY_EASY = 0;
 
@@ -36,7 +39,7 @@ public class TriviaGame {
 
     @Expose
     @SerializedName("results")
-    private Question[] questions;
+    private QuestionList questions;
 
     private int correct;
     private int incorrect;
@@ -94,6 +97,9 @@ public class TriviaGame {
     public String getDifficulty() {
         String difficulty;
         switch (this.difficulty) {
+            case -1:
+                difficulty = "";
+                break;
             case 0:
                 difficulty = "easy";
                 break;
@@ -147,9 +153,8 @@ public class TriviaGame {
      * @throws IOException if uanable to connect to the triviaDB
      */
     private void setQuestions() throws IOException {
-        this.questions = new Gson()
-                .fromJson(TriviaAPI.get(getAmount(), getCatagory(), getDifficulty(), getType()), TriviaGame.class)
-                .getQuestions();
+        this.questions = new Gson().fromJson(TriviaAPI.get(getAmount(), getCatagory(), getDifficulty(), getType()),
+                QuestionList.class);
     }
 
     /**
@@ -158,7 +163,7 @@ public class TriviaGame {
      * @return an array of question objects
      */
     public Question[] getQuestions() {
-        return this.questions;
+        return this.questions.toArray();
     }
 
     /**
@@ -167,20 +172,11 @@ public class TriviaGame {
      * @return the question object
      */
     public Question getQuestion() {
-        return this.questions[questionNumber];
-    }
-
-    /**
-     * Returns a raw string array of answers given from the TriviaDB
-     * 
-     * @return a String array of the answers
-     */
-    public String[] getAnswersRaw() {
-        return this.questions[questionNumber].getAnswers();
+        return this.questions.getQuestion(this.questionNumber);
     }
 
     private String[] getAnswersSorted() {
-        final String[] answers = getAnswersRaw();
+        final String[] answers = this.questions.getAnswers(this.questionNumber);
         Arrays.sort(answers);
         return answers;
     }
@@ -215,7 +211,7 @@ public class TriviaGame {
      * @return the correct answer
      */
     public String getCorrectAnswer() {
-        return this.questions[questionNumber].getCorrectAnswer();
+        return this.questions.getQuestion(this.questionNumber).getCorrectAnswer();
     }
 
     /**
@@ -312,4 +308,3 @@ public class TriviaGame {
 }
 
 // TODO Add game support for True or False question mode
-// TODO Add a QUestionList to handle an array of questions
