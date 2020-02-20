@@ -12,12 +12,19 @@ import org.apache.commons.text.StringEscapeUtils;
  */
 public class TriviaGame {
 
-    // TODO Comment this
+    /** Value to set the game to Easy Difficulty */
     public static final int QUESTION_DIFFICULTY_EASY = 0;
+
+    /** Value to set the game to Medium Difficulty */
     public static final int QUESTION_DIFFICULTY_MEDIUM = 1;
+
+    /** Value to set the game to Hard Difficulty */
     public static final int QUESTION_DIFFICULTY_HARD = 2;
 
+    /** Value to set the game type to Multiple Choice */
     public static final int QUESTION_TYPE_MULTIPLE = 0;
+
+    /** Valueto set the game type to True or False */
     public static final int QUESTION_TYPE_BOOLEAN = 1;
 
     private final int amount;
@@ -292,6 +299,7 @@ public class TriviaGame {
         return new int[] { this.correct, this.incorrect };
     }
 
+    // TODO comment this
     public static String escape(String string) {
         return StringEscapeUtils.unescapeHtml4(string);
     }
