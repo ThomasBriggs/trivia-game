@@ -44,6 +44,9 @@ public class TriviaGame {
     private int correct;
     private int incorrect;
 
+    private int[] correctQuestions;
+    private int[] incorretQuestions;
+
     /**
      * Creats a new object of the trivia game which will get questions from the
      * TriviaDB and keep track of your current question as well as the amount of
